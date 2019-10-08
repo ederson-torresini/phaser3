@@ -1,2 +1,2 @@
-# phaser3
-Jogos feitos com Phaser: experimentos e atividades em aula
+# Phaser
+Jogos feitos com [Phaser](https://github.com/photonstorm/phaser): experimentos e atividades em aula.
