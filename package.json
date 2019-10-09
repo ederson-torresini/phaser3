@@ -1,0 +1,15 @@
+{
+    "author": "Ederson Torresini",
+    "bugs": {
+        "url": "https://github.com/boidacarapreta/phaser3/issues"
+    },
+    "description": "Jogos feitos com Phaser: experimentos e atividades em aula",
+    "homepage": "https://github.com/boidacarapreta/phaser3#readme",
+    "main": "index.html",
+    "name": "phaser3",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/boidacarapreta/phaser3.git"
+    },
+    "version": "0.2.0"
+}
