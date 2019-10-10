@@ -1,4 +1,4 @@
-export { cena1 };
+import { cena2 } from "./cena2.js";
 
 var player;
 var stars;
@@ -210,11 +210,7 @@ function collectStar(player, star) {
 }
 
 function hitBomb(player, bomb) {
-  this.physics.pause();
-
-  player.setTint(0xff0000);
-
-  player.anims.play("turn");
-
-  gameOver = true;
+  this.scene.start(cena2);
 }
+
+export { cena1 };

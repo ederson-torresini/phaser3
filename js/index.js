@@ -1,4 +1,5 @@
 import { cena1 } from "./cena1.js";
+import { cena2 } from "./cena2.js";
 
 var config = {
   type: Phaser.AUTO,
@@ -20,7 +21,7 @@ var config = {
     width: 800,
     height: 600
   },
-  scene: [cena1]
+  scene: [cena1, cena2]
 };
 
 var game = new Phaser.Game(config);
