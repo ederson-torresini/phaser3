@@ -29,11 +29,11 @@ self.addEventListener("activate", event => {
 self.addEventListener("fetch", event => {
   console.log("Fetch intercepted for:", event.request.url);
   event.respondWith(
-    caches.match(event.request).then(cachedResponse => {
-      if (cachedResponse) {
-        return cachedResponse;
-      }
-      return fetch(event.request);
-    })
+    caches
+      .open(cacheName)
+      .then(cache => cache.match(event.request, { ignoreSearch: true }))
+      .then(response => {
+        return response || fetch(event.request);
+      })
   );
 });
