@@ -16,7 +16,8 @@ const precacheResources = [
   "assets/logo/512.png",
   "./js/cena1.js",
   "./js/cena2.js",
-  "./js/index.js"
+  "./js/index.js",
+  "./js/phaser-3.20.1.min.js"
 ];
 
 self.addEventListener("install", event => {
