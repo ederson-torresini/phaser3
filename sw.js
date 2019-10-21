@@ -13,7 +13,7 @@ const precacheResources = [
   "assets/logo/192.png",
   "assets/logo/256.png",
   "assets/logo/384.png",
-  "assets/logo/512.png"
+  "assets/logo/512.png",
   "./js/cena1.js",
   "./js/cena2.js",
   "./js/index.js"
