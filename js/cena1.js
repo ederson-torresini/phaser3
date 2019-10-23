@@ -31,7 +31,6 @@ cena1.preload = function() {
   this.load.image("esquerda", "assets/esquerda.png");
   this.load.image("direita", "assets/direita.png");
   this.load.image("cima", "assets/cima.png");
-  this.load.image("baixo", "assets/baixo.png");
 };
 
 cena1.create = function() {
@@ -201,7 +200,7 @@ cena1.create = function() {
   //
   // Para cima: pular
   var cima = this.add
-    .sprite(75, 475, "cima")
+    .sprite(700, 500, "cima")
     .setScrollFactor(0)
     .setInteractive();
   cima.on("pointerover", () => {
@@ -209,12 +208,6 @@ cena1.create = function() {
       player.setVelocityY(-330);
     }
   });
-  //
-  // Para baixo: sem função
-  var baixo = this.add
-    .sprite(75, 525, "baixo")
-    .setScrollFactor(0)
-    .setInteractive();
 };
 
 cena1.update = function() {};
