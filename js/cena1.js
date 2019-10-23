@@ -5,8 +5,10 @@ var stars;
 var bombs;
 var platforms;
 var cursors;
+var pointer;
+var touchX;
+var touchY;
 var score = 0;
-var gameOver = false;
 var scoreText;
 
 var cena1 = new Phaser.Scene("Cena 1");
@@ -24,6 +26,12 @@ cena1.preload = function() {
     frameWidth: 64,
     frameHeight: 64
   });
+
+  // d-pad
+  this.load.image("esquerda", "assets/esquerda.png");
+  this.load.image("direita", "assets/direita.png");
+  this.load.image("cima", "assets/cima.png");
+  this.load.image("baixo", "assets/baixo.png");
 };
 
 cena1.create = function() {
@@ -85,7 +93,10 @@ cena1.create = function() {
   });
 
   //  Input Events
+  // Keyboard
   cursors = this.input.keyboard.createCursorKeys();
+  // Touch
+  pointer = this.input.addPointer(1);
 
   //  Some stars to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
   stars = this.physics.add.group({
@@ -157,31 +168,56 @@ cena1.create = function() {
     },
     this
   );
-};
 
-cena1.update = function() {
-  if (gameOver) {
-    return;
-  }
-
-  if (cursors.left.isDown) {
+  // Controle direcional por toque na tela
+  //
+  // Para a esquerda: correr
+  var esquerda = this.add
+    .sprite(50, 500, "esquerda")
+    .setScrollFactor(0)
+    .setInteractive();
+  esquerda.on("pointerover", () => {
     player.setVelocityX(-160);
-
     player.anims.play("left", true);
-  } else if (cursors.right.isDown) {
-    player.setVelocityX(160);
-
-    player.anims.play("right", true);
-  } else {
+  });
+  esquerda.on("pointerout", () => {
     player.setVelocityX(0);
-
-    player.anims.play("turn");
-  }
-
-  if (cursors.up.isDown && player.body.touching.down) {
-    player.setVelocityY(-330);
-  }
+    player.anims.play("turn", true);
+  });
+  //
+  // Para a direita: correr
+  var direita = this.add
+    .sprite(100, 500, "direita")
+    .setScrollFactor(0)
+    .setInteractive();
+  direita.on("pointerover", () => {
+    player.setVelocityX(160);
+    player.anims.play("right", true);
+  });
+  direita.on("pointerout", () => {
+    player.setVelocityX(0);
+    player.anims.play("turn", true);
+  });
+  //
+  // Para cima: pular
+  var cima = this.add
+    .sprite(75, 475, "cima")
+    .setScrollFactor(0)
+    .setInteractive();
+  cima.on("pointerover", () => {
+    if (player.body.touching.down) {
+      player.setVelocityY(-330);
+    }
+  });
+  //
+  // Para baixo: sem função
+  var baixo = this.add
+    .sprite(75, 525, "baixo")
+    .setScrollFactor(0)
+    .setInteractive();
 };
+
+cena1.update = function() {};
 
 function collectStar(player, star) {
   star.disableBody(true, true);
