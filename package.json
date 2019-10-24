@@ -11,5 +11,8 @@
     "type": "git",
     "url": "git+https://github.com/boidacarapreta/phaser3.git"
   },
-  "version": "0.2.0"
+  "version": "0.2.0",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
