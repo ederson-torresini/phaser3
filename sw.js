@@ -1,3 +1,4 @@
+const version = "1.0.1";
 const cacheName = "phaser3";
 const precacheResources = [
   "./",
@@ -20,8 +21,7 @@ const precacheResources = [
   "./assets/logo/512.png",
   "./js/cena1.js",
   "./js/cena2.js",
-  "./js/index.js",
-  "./js/phaser-3.20.1.min.js"
+  "./js/index.js"
 ];
 
 self.addEventListener("install", event => {
