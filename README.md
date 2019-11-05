@@ -9,7 +9,7 @@ O primeiro jogo feito em sala foi o tutorial [_Making your first Phaser 3 game_]
 Para todas as IDEs, o arquivo `package.json` foi definido.
 
 ## CodeSandbox
-Segundo a [documentação](https://codesandbox.io/docs/importing#import-from-github), o arquivo `sandbox.config.json` define o modelo de projeto, que atualmente é HTML5 estático.
+Segundo a [documentação](https://codesandbox.io/docs/importing#import-from-github), o arquivo `sandbox.config.json` define o modelo de projeto, que atualmente é Node.js.
 
 Para isso, basta acessar a URL: https://codesandbox.io/s/github/boidacarapreta/phaser3.
 
