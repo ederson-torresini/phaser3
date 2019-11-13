@@ -1,6 +1,9 @@
 import { cena2 } from "./cena2.js";
 
 var player;
+var player2;
+var player2_x;
+var player2_y;
 var stars;
 var bombs;
 var platforms;
@@ -43,6 +46,18 @@ cena1.preload = function() {
 };
 
 cena1.create = function() {
+  // Websocket
+  this.socket = io();
+
+  this.socket.on("connect", () => {
+    console.log("Jogador %s conectado ao servidor.", this.socket.id);
+    this.socket.emit("notify", this.socket.id);
+  });
+
+  this.socket.on("publish", msg => {
+    console.log(msg);
+  });
+
   //  A simple background for our game
   this.add.image(400, 300, "sky");
 
@@ -67,6 +82,13 @@ cena1.create = function() {
   //  Player physics properties. Give the little guy a slight bounce.
   player.setBounce(0.2);
   player.setCollideWorldBounds(true);
+
+  player2 = this.add.sprite(50, 515, "dude");
+  this.socket.on("renderPlayer", ({ x, y }) => {
+    console.log({ x, y });
+    player2_x = x;
+    player2_y = y;
+  });
 
   //  Our player animations, turning, walking left and walking right.
   this.anims.create({
@@ -227,7 +249,12 @@ cena1.create = function() {
   });
 };
 
-cena1.update = function() {};
+cena1.update = function () {
+  // Muitas mensagens. Melhorar para apenas quando houver novidades...
+  //this.socket.emit("movement", { x: player.body.x, y: player.body.y });
+  player2.x = player2_x;
+  player2.y = player2_y;
+};
 
 function collectStar(player, star) {
   star.disableBody(true, true);

@@ -28,7 +28,8 @@
 </head>
 
 <body>
-	<script>
+	<!--
+    <script>
 		if ("serviceWorker" in navigator) {
         navigator.serviceWorker
           .register("sw.js")
@@ -38,11 +39,12 @@
           );
       }
 	</script>
-
+  -->
 	<div id="game"></div>
 
 	<!-- Atualizada a versão para 3.16.0 ou superior para ter suporte a tela cheia -->
 	<script src="./js/phaser.min.js"></script>
+	<script src="./socket.io/socket.io.js"></script>
 
 	<!-- Vários arquivos. Baseado em https://medium.com/@mattlag/es6-modules-getting-started-gotchas-2ad154f38e2e -->
 	<script type="module" src="./js/index.js"></script>
