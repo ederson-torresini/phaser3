@@ -1,6 +1,8 @@
 import { cena2 } from "./cena2.js";
 
 var player;
+var player_x_original;
+var player_y_original;
 var player2;
 var player2_x;
 var player2_y;
@@ -83,9 +85,8 @@ cena1.create = function() {
   player.setBounce(0.2);
   player.setCollideWorldBounds(true);
 
-  player2 = this.add.sprite(50, 515, "dude");
+  player2 = this.add.sprite(50, 515, "dude").setOrigin(1, 0);
   this.socket.on("renderPlayer", ({ x, y }) => {
-    console.log({ x, y });
     player2_x = x;
     player2_y = y;
   });
@@ -249,9 +250,18 @@ cena1.create = function() {
   });
 };
 
-cena1.update = function () {
-  // Muitas mensagens. Melhorar para apenas quando houver novidades...
-  //this.socket.emit("movement", { x: player.body.x, y: player.body.y });
+cena1.update = function() {
+  // Enviar as novidades
+  if (
+    player_x_original !== player.body.x ||
+    player_y_original !== player.body.y
+  ) {
+    this.socket.emit("movement", { x: player.body.x, y: player.body.y });
+    player_x_original = player.body.x;
+    player_y_original = player.body.y;
+  }
+
+  // Ao receber as novidades, renderizar
   player2.x = player2_x;
   player2.y = player2_y;
 };
