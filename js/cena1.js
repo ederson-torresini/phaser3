@@ -1,6 +1,7 @@
 import { cena2 } from "./cena2.js";
 
 var player;
+var player2;
 var stars;
 var bombs;
 var platforms;
@@ -43,6 +44,18 @@ cena1.preload = function() {
 };
 
 cena1.create = function() {
+  // Websocket
+  this.socket = io();
+
+  this.socket.on("connect", () => {
+    console.log("Jogador %s conectado ao servidor.", this.socket.id);
+    this.socket.emit("notify", this.socket.id);
+  });
+
+  this.socket.on("publish", msg => {
+    console.log(msg);
+  });
+
   //  A simple background for our game
   this.add.image(400, 300, "sky");
 
@@ -67,6 +80,20 @@ cena1.create = function() {
   //  Player physics properties. Give the little guy a slight bounce.
   player.setBounce(0.2);
   player.setCollideWorldBounds(true);
+
+  player2 = this.add
+    .sprite(50, 450, "dude")
+    .setOrigin(1, 0)
+    .setAlpha(0.5);
+  this.socket.on("renderPlayer", ({ frame, x, y }) => {
+    try {
+      player2.setFrame(frame);
+      player2.x = x;
+      player2.y = y;
+    } catch {
+      console.log(player2);
+    }
+  });
 
   //  Our player animations, turning, walking left and walking right.
   this.anims.create({
@@ -188,11 +215,21 @@ cena1.create = function() {
     esquerda.setFrame(1);
     player.setVelocityX(-160);
     player.anims.play("left", true);
+    this.socket.emit("movement", {
+      frame: player.anims.currentFrame.index,
+      x: player.body.x,
+      y: player.body.y
+    });
   });
   esquerda.on("pointerout", () => {
     esquerda.setFrame(0);
     player.setVelocityX(0);
     player.anims.play("turn", true);
+    this.socket.emit("movement", {
+      frame: player.anims.currentFrame.index,
+      x: player.body.x,
+      y: player.body.y
+    });
   });
   //
   // Para a direita: correr
@@ -204,11 +241,21 @@ cena1.create = function() {
     direita.setFrame(1);
     player.setVelocityX(160);
     player.anims.play("right", true);
+    this.socket.emit("movement", {
+      frame: player.anims.currentFrame.index,
+      x: player.body.x,
+      y: player.body.y
+    });
   });
   direita.on("pointerout", () => {
     direita.setFrame(0);
     player.setVelocityX(0);
     player.anims.play("turn", true);
+    this.socket.emit("movement", {
+      frame: player.anims.currentFrame.index,
+      x: player.body.x,
+      y: player.body.y
+    });
   });
   //
   // Para cima: pular
@@ -221,9 +268,19 @@ cena1.create = function() {
     if (player.body.touching.down) {
       player.setVelocityY(-330);
     }
+    this.socket.emit("movement", {
+      frame: player.anims.currentFrame.index,
+      x: player.body.x,
+      y: player.body.y
+    });
   });
   cima.on("pointerout", () => {
     cima.setFrame(0);
+    this.socket.emit("movement", {
+      frame: player.anims.currentFrame.index,
+      x: player.body.x,
+      y: player.body.y
+    });
   });
 };
 
