@@ -14,7 +14,7 @@ LABEL maintainer="boidacarapreta@gmail.com" \
   org.label-schema.version="12.13" \
   org.label-schema.schema-version="1.0"
 
-RUN git clone https://github.com/boidacarapreta/phaser3 /game && \
+RUN git clone https://github.com/boidacarapreta/phaser3 -b dev /game && \
   cd /game && \
   npm install
 COPY server.js /game
